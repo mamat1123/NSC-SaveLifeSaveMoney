@@ -37,7 +37,8 @@ const MainStack = createStackNavigator(
 const RootStack = createStackNavigator(
     {
         Main: {
-            screen: MainStack,
+            // screen: MainStack,
+            screen: FeedScreen,
         },
         Login: {
             screen: LoginScreen,
@@ -50,7 +51,7 @@ const RootStack = createStackNavigator(
         // }
     },
     {
-        initialRouteName: 'Login',
+        initialRouteName: 'Main',
         headerMode: 'none',
     }
 );

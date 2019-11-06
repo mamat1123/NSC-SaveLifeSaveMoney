@@ -1,31 +1,14 @@
-import React from 'react';
-import { StyleSheet,Text } from 'react-native';
+import * as React from "react";
+import { StyleSheet, Text, View } from 'react-native';
 import {
     Icon,
     Layout,
-    OverflowMenu,
-    TopNavigation,
-    TopNavigationAction,
     BottomNavigation,
     BottomNavigationTab,
 } from 'react-native-ui-kitten';
+import moment from "moment";
+// import {CircularProgressbar} from 'react-circular-progressbar'
 import AnimateNumber from 'react-native-animate-number'
-const BackIcon = (style) => (
-    <Icon {...style} name='arrow-back' />
-);
-
-const MenuIcon = (style) => (
-    <Icon {...style} name='more-vertical' />
-);
-
-const InfoIcon = (style) => (
-    <Icon {...style} name='info' />
-);
-
-const LogoutIcon = (style) => (
-    <Icon {...style} name='log-out' />
-);
-
 const DashboardIcon = (style) => (
     <Icon {...style} name='layout' />
 );
@@ -33,67 +16,51 @@ const DashboardIcon = (style) => (
 const SettingsIcon = (style) => (
     <Icon {...style} name='settings' />
 );
+const percentage = 60
 class FeedScreen extends React.Component {
     state = {
-        menuVisible: false,
         selectedIndex: 0,
-    };
-
-    menuData = [
-        { title: 'About', icon: InfoIcon },
-        { title: 'Logout', icon: LogoutIcon },
-    ];
-
-    onMenuActionPress = () => {
-        const menuVisible = !this.state.menuVisible;
-        this.setState({ menuVisible });
+        name: 'kimmix',
+        time: new Date().getDate()
     };
     onTabSelect = (selectedIndex) => {
         this.setState({ selectedIndex });
     };
-    onMenuItemSelect = (index) => {
-        // Handle Item Select
-
-        this.setState({ menuVisible: false });
-    };
-
-    renderMenuAction = () => (
-        <OverflowMenu
-            visible={this.state.menuVisible}
-            data={this.menuData}
-            placement='bottom end'
-            onSelect={this.onMenuItemSelect}
-            onBackdropPress={this.onMenuActionPress}>
-            <TopNavigationAction
-                icon={MenuIcon}
-                onPress={this.onMenuActionPress}
-            />
-        </OverflowMenu>
-    );
-
-    renderBackAction = () => (
-        <TopNavigationAction  onPress={() => this.props.navigation.navigate('Login')} icon={BackIcon} />
-    );
     render() {
         return (
             <Layout style={styles.container}>
-                <TopNavigation
-                    title='Application Title'
-                    leftControl={this.renderBackAction()}
-                    rightControls={this.renderMenuAction()}
-                />
-                <AnimateNumber  style={styles.textMain} value={2253}
-                    countBy={10}
-                    timing={(interval, progress) => {
-                        // slow start, slow end
-                        return interval * (1 - Math.sin(Math.PI * progress)) * 5
-                    }} />
-                    <Text style={styles.textMain} >ก้าว</Text>
-                    <Text style={styles.textMain} >ก้าว</Text>
-                    <Text style={styles.textMain} >ก้าว</Text>
-                    <Text style={styles.textMain} >ก้าว</Text>
+                <Text style={styles.textTitle}>Hello, {this.state.name}</Text>
+                <Text style={styles.textTime}>{moment().format('MMMM Do YYYY')}</Text>
+                <View style={styles.cardActionSteps}>
+                    <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
+                        <AnimateNumber style={styles.textMain} value={2253}
+                            countBy={10}
+                            timing={(interval, progress) => {
+                                // slow start, slow end
+                                return interval * (1 - Math.sin(Math.PI * progress)) * 5
+                            }} />
+                        <Text style={styles.textMain} > Steps</Text>
+                        {/* <CircularProgressbar value={percentage} text={`${percentage}%`} strokeWidth={5} /> */}
+                    </View>
+                    <Text style={styles.textSubMain} > goal 1000 steps</Text>
+                </View>
+
+                <View style={styles.cardActionPoint}>
+                    <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
+                        <AnimateNumber style={styles.textMain} value={1000}
+                            countBy={10}
+                            timing={(interval, progress) => {
+                                // slow start, slow end
+                                return interval * (1 - Math.sin(Math.PI * progress)) * 5
+                            }} />
+                        <Text style={styles.textMain} > Point</Text>
+                        {/* <CircularProgressbar value={percentage} text={`${percentage}%`} strokeWidth={5} /> */}
+                    </View>
+                    <Text style={styles.textSubMain} > exchange now</Text>
+                </View>
+
                 <BottomNavigation
-                    style={{marginTop:'auto'}}
+                    style={{ marginTop: 'auto' }}
                     selectedIndex={this.state.selectedIndex}
                     onSelect={this.onTabSelect}>
                     <BottomNavigationTab
@@ -113,13 +80,55 @@ class FeedScreen extends React.Component {
 const styles = StyleSheet.create({
     container: {
         height: '100%',
-        width:'100%',
-        marginTop:'5%'
+        width: '100%',
+        paddingTop: '5%',
+        // marginTop:'5%'
     },
-    textMain:{
-        fontSize:50,
-        fontWeight:'bold',
-        textAlign:'center'
+    textMain: {
+        color: '#FFFFFF',
+        fontSize: 40,
+        fontWeight: '500',
+    },
+    textSubMain: {
+        color: '#FFFFFF',
+        fontSize: 17,
+        fontWeight: '200',
+        marginLeft: '3%',
+        textAlign: 'center'
+    },
+    textTitle: {
+        color: '#000000',
+        fontSize: 35,
+        fontWeight: '400',
+        marginLeft: '3%',
+        marginBottom:'2%'
+    },
+    textTime: {
+        color: '#727272',
+        fontSize: 17,
+        fontWeight: '200',
+        marginLeft: '3%',
+        marginBottom:'2%'
+    },
+    cardActionSteps: {
+        backgroundColor: '#F64D4D',
+        // display: 'flex',
+        // flexDirection: 'row',
+        // justifyContent: 'center',
+        marginLeft: '5%',
+        marginBottom:'5%',
+        borderTopLeftRadius: 19,
+        borderBottomLeftRadius: 19
+    },
+    cardActionPoint: {
+        backgroundColor: '#FFEA63',
+        // display: 'flex',
+        // flexDirection: 'row',
+        // justifyContent: 'center',
+        marginBottom:'5%',
+        marginRight: '5%',
+        borderTopRightRadius: 19,
+        borderBottomRightRadius: 19
     }
 });
 
