@@ -5,6 +5,7 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import LoginScreen from './src/components/Login'
 import RegisterScreen from './src/components/Register'
+import ConnectBluetooth from './src/components/ConnectBluetooth'
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import FeedScreen from './src/components/Feed'
 import { AppLoading } from 'expo';
@@ -46,12 +47,12 @@ const RootStack = createStackNavigator(
         Register: {
             screen: RegisterScreen,
         },
-        // Map:{
-        //   screen:MapScreen
-        // }
+        Bluetooth:{
+          screen:ConnectBluetooth
+        }
     },
     {
-        initialRouteName: 'Main',
+        initialRouteName: 'Bluetooth',
         headerMode: 'none',
     }
 );
